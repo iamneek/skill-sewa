@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: coolbit
+Build-Jdk: Amazon Corretto 23.0.2
+
