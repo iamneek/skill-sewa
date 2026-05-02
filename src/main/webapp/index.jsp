@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +18,17 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css" />
 </head>
 <body>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="currentUser" value="${sessionScope.user}" />
+<c:set var="displayName" value="${currentUser.fullName}" />
+<c:if test="${not empty currentUser and fn:contains(currentUser.fullName, ' ')}">
+    <c:set var="displayName" value="${fn:substringBefore(currentUser.fullName, ' ')}" />
+</c:if>
+
 <header class="site-header">
     <div class="container nav-shell">
-        <a class="brand" href="${pageContext.request.contextPath}/">
-            <img src="${pageContext.request.contextPath}/assets/images/skillsewa-logo.svg" alt="Skill Sewa" class="brand-logo" />
+        <a class="brand" href="${ctx}/">
+            <img src="${ctx}/assets/images/skillsewa-logo.svg" alt="Skill Sewa" class="brand-logo" />
         </a>
 
         <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
@@ -27,13 +36,24 @@
         </button>
 
         <nav id="main-nav" class="main-nav">
-            <a href="${pageContext.request.contextPath}/" class="active">Home</a>
-            <a href="${pageContext.request.contextPath}/user/browse-skills">Browse</a>
+            <a href="${ctx}/" class="active">Home</a>
+            <a href="${ctx}/user/browse-skills">Browse</a>
+            <c:if test="${not empty currentUser}">
+                <a href="${ctx}/user/dashboard">Dashboard</a>
+            </c:if>
         </nav>
 
         <div class="nav-right">
-            <a class="login-link" href="${pageContext.request.contextPath}/login">Login</a>
-            <a class="join-btn" href="${pageContext.request.contextPath}/register">Join Sewa</a>
+            <c:choose>
+                <c:when test="${not empty currentUser}">
+                    <span class="user-name"><i class="ri-user-line"></i> ${displayName}</span>
+                    <a class="logout-link" href="${ctx}/logout"><i class="ri-logout-box-r-line"></i> Logout</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="login-link" href="${ctx}/login">Login</a>
+                    <a class="join-btn" href="${ctx}/register">Join Sewa</a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </header>
@@ -60,9 +80,9 @@
             </div>
             <div class="hero-media" aria-label="Hero image placeholder">
                 <img
-                    class="hero-image"
-                    src="${pageContext.request.contextPath}/assets/images/hero_image.jpeg"
-                    alt="Skill Sewa teaching and learning illustration"
+                        class="hero-image"
+                        src="${pageContext.request.contextPath}/assets/images/hero_image.jpeg"
+                        alt="Skill Sewa teaching and learning illustration"
                 />
                 <aside class="floating-note">
                     <small>SKILLS SHARED</small>

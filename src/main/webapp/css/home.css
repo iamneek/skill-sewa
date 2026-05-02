@@ -61,6 +61,20 @@
     font-weight: 400;
 }
 
+.user-name,
+.logout-link {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-weight: 400;
+}
+
+.user-name i,
+.logout-link i {
+    margin-right: 0.28rem;
+}
+
 .main-nav a.active {
     color: var(--accent);
 }
@@ -91,9 +105,20 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.logout-link {
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 0.6rem 1.05rem;
+}
+
 .join-btn:hover {
     transform: translate(-2px, -2px);
     box-shadow: 4px 4px 0 #161616;
+}
+
+.logout-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 .hero-section {
