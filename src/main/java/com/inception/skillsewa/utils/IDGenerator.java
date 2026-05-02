@@ -8,12 +8,12 @@ public class IDGenerator {
                 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
         int len = 10;
         Random random = new Random();
-        StringBuilder final_id = new StringBuilder();
-        for (int i =0; i <= len; i++) {
-            final_id.append(chars[random.nextInt(0, chars.length)]);
+        StringBuilder finalId = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            finalId.append(chars[random.nextInt(0, chars.length)]);
         }
 
-        return final_id.toString();
+        return finalId.toString();
     }
 
 //    public static void main(String[] args) {
