@@ -39,7 +39,14 @@
             <a href="${ctx}/" class="active">Home</a>
             <a href="${ctx}/user/browse-skills">Browse</a>
             <c:if test="${not empty currentUser}">
-                <a href="${ctx}/user/dashboard">Dashboard</a>
+                <c:choose>
+                    <c:when test="${fn:toLowerCase(currentUser.role) eq 'admin'}">
+                        <a href="${ctx}/admin/dashboard">Dashboard</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${ctx}/user/dashboard">Dashboard</a>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
         </nav>
 
