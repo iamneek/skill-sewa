@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 46" role="img" aria-labelledby="title desc">
+  <title id="title">Skill Sewa Wordmark</title>
+  <desc id="desc">Text-only Skill Sewa logo with split color wordmark.</desc>
+  <defs>
+    <style>
+      .word {
+        font-family: 'Outfit', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 34px;
+        letter-spacing: -0.02em;
+      }
+      .ink { fill: #1a1a1a; }
+      .accent { fill: #b05541; }
+    </style>
+  </defs>
+
+  <text x="2" y="33" class="word ink">skill</text>
+  <text x="68" y="33" class="word accent">sewa</text>
+</svg>
