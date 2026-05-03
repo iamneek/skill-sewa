@@ -42,7 +42,11 @@ public class LoginServlet extends HttpServlet {
         if (PasswordUtils.checkPassword(password, user.getPassword())){
             SessionUtils.setUserSession(req, user);
             CookieUtils.setUserCookie(resp, email);
-            resp.sendRedirect(req.getContextPath() + "/");
+            if ("admin".equalsIgnoreCase(user.getRole())) {
+                resp.sendRedirect(req.getContextPath() + "/admin/dashboard");
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/");
+            }
         }
         else {
             req.setAttribute("error", "Invalid email or password");
