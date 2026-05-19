@@ -20,7 +20,7 @@ public class SessionUtils {
 
     public static boolean isAdmin(HttpServletRequest req) {
         HttpSession session = req.getSession(false);
-        return session != null && session.getAttribute("role").equals("admin");
+        return session != null && "admin".equals(session.getAttribute("role"));
     }
 
     public static void destroyUserSession(HttpServletRequest req) {

@@ -60,6 +60,34 @@ public class BookingDAO {
         }
     }
 
+    public boolean updateBookingDecision(String bookingId, String status, String acceptanceNote, String rejectionNote) {
+        String sql = "UPDATE bookings SET status = ?, acceptance_note = ?, rejection_note = ? WHERE booking_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);
+            ps.setString(2, acceptanceNote);
+            ps.setString(3, rejectionNote);
+            ps.setString(4, bookingId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to update booking decision.");
+            return false;
+        }
+    }
+
+    public boolean updateBookingPaidStatus(String bookingId, boolean paid) {
+        String sql = "UPDATE bookings SET is_paid = ? WHERE booking_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setBoolean(1, paid);
+            ps.setString(2, bookingId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to update booking payment status.");
+            return false;
+        }
+    }
+
     public ArrayList<BookingModel> getAllBookings() {
         ArrayList<BookingModel> allBookings = new ArrayList<>();
         String sql = "SELECT * FROM bookings ORDER BY created_at DESC";
@@ -95,6 +123,41 @@ public class BookingDAO {
         }
     }
 
+    public int getBookingsCountByLearnerAndStatus(String learnerId, String status) {
+        String sql = "SELECT COUNT(*) FROM bookings WHERE learner_id = ? AND status = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, learnerId);
+            ps.setString(2, status);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to get bookings count by learner and status.");
+            return 0;
+        }
+    }
+
+    public ArrayList<BookingModel> getBookingsByLearnerAndStatus(String learnerId, String status) {
+        ArrayList<BookingModel> bookings = new ArrayList<>();
+        String sql = "SELECT * FROM bookings WHERE learner_id = ? AND status = ? ORDER BY created_at DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, learnerId);
+            ps.setString(2, status);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bookings.add(mapBooking(rs));
+            }
+            return bookings;
+        } catch (SQLException e) {
+            System.out.println("Failed to get bookings by learner and status.");
+            return bookings;
+        }
+    }
+
     public int getTotalBookingsCount() {
         String sql = "SELECT COUNT(*) FROM bookings";
         try (Connection conn = DBConnection.getConnection();
@@ -122,6 +185,136 @@ public class BookingDAO {
         } catch (SQLException e) {
             System.out.println("Failed to get pending bookings count.");
             return 0;
+        }
+    }
+
+    public int getBookingsCountByLearner(String learnerId) {
+        String sql = "SELECT COUNT(*) FROM bookings WHERE learner_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, learnerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to get bookings count by learner.");
+            return 0;
+        }
+    }
+
+    public int getCompletedSessionsCountByLearner(String learnerId) {
+        String sql = "SELECT COUNT(*) FROM bookings WHERE learner_id = ? AND status = 'completed'";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, learnerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to get completed sessions count by learner.");
+            return 0;
+        }
+    }
+
+    public ArrayList<BookingModel> getRecentBookingsByLearner(String learnerId, int limit) {
+        ArrayList<BookingModel> bookings = new ArrayList<>();
+        String sql = "SELECT * FROM bookings WHERE learner_id = ? ORDER BY created_at DESC LIMIT ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, learnerId);
+            ps.setInt(2, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bookings.add(mapBooking(rs));
+            }
+            return bookings;
+        } catch (SQLException e) {
+            System.out.println("Failed to get recent bookings by learner.");
+            return bookings;
+        }
+    }
+
+    public ArrayList<BookingModel> getRecentRequestsForTeacher(String teacherId, int limit) {
+        ArrayList<BookingModel> bookings = new ArrayList<>();
+        String sql = "SELECT b.* FROM bookings b " +
+                "JOIN skills s ON b.skill_id = s.skill_id " +
+                "WHERE s.teacher_id = ? ORDER BY b.created_at DESC LIMIT ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, teacherId);
+            ps.setInt(2, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bookings.add(mapBooking(rs));
+            }
+            return bookings;
+        } catch (SQLException e) {
+            System.out.println("Failed to get recent requests for teacher.");
+            return bookings;
+        }
+    }
+
+    public int getTeacherRequestCountByStatus(String teacherId, String status) {
+        String sql = "SELECT COUNT(*) FROM bookings b " +
+                "JOIN skills s ON b.skill_id = s.skill_id " +
+                "WHERE s.teacher_id = ? AND b.status = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, teacherId);
+            ps.setString(2, status);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to get teacher request count by status.");
+            return 0;
+        }
+    }
+
+    public ArrayList<BookingModel> getTeacherRequestsByStatus(String teacherId, String status, Integer skillId) {
+        ArrayList<BookingModel> bookings = new ArrayList<>();
+        String sql = "SELECT b.* FROM bookings b " +
+                "JOIN skills s ON b.skill_id = s.skill_id " +
+                "WHERE s.teacher_id = ? AND b.status = ?" +
+                (skillId == null ? "" : " AND b.skill_id = ?") +
+                " ORDER BY b.created_at DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, teacherId);
+            ps.setString(2, status);
+            if (skillId != null) {
+                ps.setInt(3, skillId);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bookings.add(mapBooking(rs));
+            }
+            return bookings;
+        } catch (SQLException e) {
+            System.out.println("Failed to get teacher requests by status.");
+            return bookings;
+        }
+    }
+
+    public boolean bookingBelongsToTeacher(String bookingId, String teacherId) {
+        String sql = "SELECT 1 FROM bookings b " +
+                "JOIN skills s ON b.skill_id = s.skill_id " +
+                "WHERE b.booking_id = ? AND s.teacher_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, bookingId);
+            ps.setString(2, teacherId);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println("Failed to validate booking teacher ownership.");
+            return false;
         }
     }
 

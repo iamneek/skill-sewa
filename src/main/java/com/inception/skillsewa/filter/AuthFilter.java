@@ -24,7 +24,8 @@ public class AuthFilter implements Filter {
 
         boolean isPublicPath = url.contains("/login") || url.contains("/register") || url.contains("/css") ||
                 url.contains("/js") || url.endsWith(".ico") || url.contains("/assets") || url.equals(req.getContextPath() + "/")
-                || url.equals(req.getContextPath() + "/login") || url.equals(req.getContextPath());
+                || url.equals(req.getContextPath() + "/login") || url.equals(req.getContextPath()) || url.contains("/user/browse-skills")
+                || url.equals(req.getContextPath() + "/about") || url.equals(req.getContextPath() + "/contact");
 
         if (isPublicPath){
             chain.doFilter(request, response);

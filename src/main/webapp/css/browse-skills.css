@@ -1,0 +1,447 @@
+.site-header {
+    border-bottom: 1px solid var(--line);
+}
+
+.nav-shell {
+    min-height: 80px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.brand-logo {
+    height: 30px;
+    width: auto;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.4rem;
+}
+
+.main-nav a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: #2a2a2a;
+}
+
+.main-nav a.active {
+    color: var(--accent);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.login-link {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+}
+
+.join-btn {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #f8f6f0;
+    min-height: 34px;
+    padding: 0 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+}
+
+.user-name {
+    min-height: 34px;
+    padding: 0 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+}
+
+.logout-link {
+    border: 1px solid var(--line);
+    min-height: 34px;
+    padding: 0 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    background: #f8f6f0;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.logout-link:hover,
+.logout-link:focus-visible,
+.logout-link:active {
+    box-shadow: 4px 4px 0 #2b2b2b;
+    transform: translate(-1px, -1px);
+}
+
+.browse-hero {
+    padding: 2.3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.micro-label {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.browse-hero h1 {
+    margin-top: 0.45rem;
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+    line-height: 0.95;
+    font-weight: 500;
+}
+
+.search-wrap {
+    margin-top: 1.5rem;
+    max-width: 700px;
+    border: 1px solid var(--line);
+    min-height: 44px;
+    padding: 0 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.search-wrap i {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.search-wrap input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+}
+
+.search-wrap input::placeholder {
+    color: #8a857a;
+}
+
+.chip-row {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.chip {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    min-height: 26px;
+    padding: 0 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+}
+
+.chip.active {
+    background: #16181d;
+    border-color: #16181d;
+    color: #f8f6f0;
+}
+
+.skills-section {
+    padding: 2.05rem 0 2.2rem;
+    border-bottom: 1px solid var(--line);
+    background: #eee9dd;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.skill-empty-card {
+    grid-column: 1 / -1;
+    border: 1px solid var(--line);
+    background: #f8f6f0;
+    min-height: 220px;
+    padding: 2rem 1.3rem;
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.empty-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.48rem;
+    color: var(--accent);
+    font-size: 1.45rem;
+}
+
+.skill-empty-card h2 {
+    margin-top: 0.9rem;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1;
+    font-weight: 500;
+}
+
+.skill-empty-card p {
+    margin-top: 0.45rem;
+    color: #5a554c;
+}
+
+.skill-card {
+    border: 1px solid var(--line);
+    background: #fbfaf6;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.skill-card:hover {
+    box-shadow: 4px 4px 0 #2b2b2b;
+    transform: translate(-1px, -1px);
+}
+
+.card-top {
+    min-height: 48px;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tag-pill {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    min-height: 24px;
+    padding: 0 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.slot {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #4f4a42;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.26rem;
+}
+
+.card-body {
+    padding: 1.2rem 1rem 1.15rem;
+}
+
+.card-body h2 {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.desc {
+    margin-top: 0.65rem;
+    color: #5a554c;
+    min-height: 2.9em;
+}
+
+.meta-row {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #d0c9bc;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.meta-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: #44403a;
+}
+
+.meta-value {
+    margin-top: 0.15rem;
+    font-size: 1.3rem;
+    line-height: 1;
+    font-family: var(--serif);
+}
+
+.price-box {
+    text-align: right;
+}
+
+.price {
+    margin-top: 0.15rem;
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--accent);
+}
+
+.card-cta {
+    min-height: 44px;
+    border-top: 1px solid var(--line);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.site-footer {
+    padding: 2.4rem 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1.3fr;
+    gap: 1rem;
+}
+
+.footer-brand {
+    display: inline-block;
+}
+
+.footer-grid p {
+    margin-top: 0.5rem;
+    color: #4e4a42;
+}
+
+.footer-grid h4 {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.footer-links {
+    list-style: none;
+    margin-top: 0.6rem;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.footer-links small {
+    color: #5f5b53;
+}
+
+@media (max-width: 1200px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 980px) {
+    .nav-shell {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+        padding: 0.9rem 0;
+    }
+
+    .main-nav {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+    }
+
+    .nav-right {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .skills-grid,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .browse-hero,
+    .skills-section,
+    .site-footer {
+        padding-top: 1.35rem;
+        padding-bottom: 1.35rem;
+    }
+
+    .search-wrap {
+        min-height: 42px;
+        padding: 0 0.65rem;
+    }
+
+    .search-wrap input {
+        font-size: 0.92rem;
+    }
+
+    .chip {
+        font-size: 0.54rem;
+        letter-spacing: 0.18em;
+        padding: 0 0.54rem;
+    }
+
+    .card-body {
+        padding: 0.95rem 0.8rem;
+    }
+
+    .card-top,
+    .card-cta {
+        padding: 0 0.8rem;
+    }
+
+    .meta-value,
+    .price {
+        font-size: 1.45rem;
+    }
+}

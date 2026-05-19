@@ -220,8 +220,8 @@
         <div>
             <h4>ACCOUNT</h4>
             <ul class="footer-links">
-                <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
-                <li><a href="${pageContext.request.contextPath}/register">Sign Up</a></li>
+                <li><a href="${pageContext.request.contextPath}/about">About Us</a></li>
+                <li><a href="${pageContext.request.contextPath}/contact">Contact Us</a></li>
             </ul>
         </div>
         <div>

@@ -68,6 +68,22 @@ public class SkillDAO {
         }
     }
 
+    public boolean updateSkill(SkillModel skill) {
+        String sql = "UPDATE skills SET category_id = ?, title = ?, description = ?, price_per_10min = ? WHERE skill_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, skill.getCategoryId());
+            ps.setString(2, skill.getTitle());
+            ps.setString(3, skill.getDescription());
+            ps.setDouble(4, skill.getPrice_per_10min());
+            ps.setInt(5, skill.getSkillId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to update skill.");
+            return false;
+        }
+    }
+
     public ArrayList<SkillModel> getAllSkills() {
         ArrayList<SkillModel> allSkills = new ArrayList<>();
         String sql = "SELECT * FROM skills ORDER BY created_at DESC";
@@ -114,6 +130,39 @@ public class SkillDAO {
             return 0;
         } catch (SQLException e) {
             System.out.println("Failed to get total skills count.");
+            return 0;
+        }
+    }
+
+    public ArrayList<SkillModel> getSkillsByTeacherId(String teacherId) {
+        ArrayList<SkillModel> skills = new ArrayList<>();
+        String sql = "SELECT * FROM skills WHERE teacher_id = ? ORDER BY created_at DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, teacherId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                skills.add(mapSkill(rs));
+            }
+            return skills;
+        } catch (SQLException e) {
+            System.out.println("Failed to get skills by teacher id.");
+            return skills;
+        }
+    }
+
+    public int getSkillsCountByTeacher(String teacherId) {
+        String sql = "SELECT COUNT(*) FROM skills WHERE teacher_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, teacherId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to get skills count by teacher.");
             return 0;
         }
     }
