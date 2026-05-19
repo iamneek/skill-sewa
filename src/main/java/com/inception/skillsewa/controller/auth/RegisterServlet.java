@@ -19,7 +19,7 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
-    UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,8 +32,10 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirmedPassword = req.getParameter("confirmPassword");
-        String phone =  req.getParameter("phone");
+        String phone = req.getParameter("phone");
         String sessionContactInfo = req.getParameter("sessionContactInfo");
+
+        phone = phone == null ? "" : phone.trim();
 
         if(!(password.equals(confirmedPassword))){
             req.setAttribute("error", "Passwords do not match");
@@ -43,6 +45,12 @@ public class RegisterServlet extends HttpServlet {
 
         if(userDAO.userExistsByEmail(email)){
             req.setAttribute("error", "Email already exists");
+            req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, resp);
+            return;
+        }
+
+        if(!phone.matches("\\+?\\d{7,14}")){
+            req.setAttribute("error", "Enter a valid phone number (optional '+' and up to 14 digits)");
             req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, resp);
             return;
         }
