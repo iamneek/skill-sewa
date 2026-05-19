@@ -55,7 +55,7 @@
                 <div class="form-grid-two">
                     <div>
                         <label for="phone">Phone</label>
-                        <input id="phone" name="phone" type="tel" placeholder="9812345678" required />
+                        <input id="phone" name="phone" type="tel" placeholder="+9779812345678" inputmode="tel" maxlength="15" pattern="\+?[0-9]{7,14}" title="Enter a valid phone number (optional '+' and up to 14 digits)" oninput="this.value = this.value.replace(/(?!^\+)\D/g, ''); if (this.value.indexOf('+') > 0) { this.value = this.value.replace(/\+/g, ''); }" required />
                     </div>
                     <div>
                         <label for="sessionContactInfo">Session Contact</label>
