@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,8 +45,9 @@ public class LoginServlet extends HttpServlet {
             if ("admin".equalsIgnoreCase(user.getRole())) {
                 resp.sendRedirect(req.getContextPath() + "/admin/dashboard");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/");
+                resp.sendRedirect(req.getContextPath() + "/user/dashboard");
             }
+
         }
         else {
             req.setAttribute("error", "Invalid email or password");
