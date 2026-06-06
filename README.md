@@ -1,8 +1,6 @@
 # Skill Sewa
 
-<div align="center">
-<img src="https://socialify.git.ci/iamneek/skill-sewa/image?language=1&name=1&owner=1&pattern=Floating+Cogs&theme=Light"  alt="skill-sewa" width="640" height="320" />
-</div>
+<p align="center"><img src="https://socialify.git.ci/iamneek/skill-sewa/image?custom_language=Java&amp;font=Inter&amp;language=1&amp;name=1&amp;pattern=Floating+Cogs&amp;&amp;&amp;theme=Light" alt="project-image"></p> 
 
 #### Preview
 
